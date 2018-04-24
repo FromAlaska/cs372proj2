@@ -146,7 +146,7 @@ std::string Composite::to_postscript() const {
 	double total_width = 0;
 
 	for(unsigned int index = 0; index < m_shapes.size(); ++index) {
-		outString += "gsave\n" + move_to_draw_position(index, total_height, total_width) + "grestore\n";
+		outString += "gsave\n" + moveToFirstPosition(index, total_height, total_width) + "grestore\n";
 	}
 	return outString;
 }
@@ -166,7 +166,7 @@ Layered::Layered(std::initializer_list<std::shared_ptr<Shape>> shapes) : Composi
 	}
 }
 
-std::string Layered::move_to_draw_position(int index, double & width, double & height) const {
+std::string Layered::moveToFirstPosition(int index, double & width, double & height) const {
 	return getShapes()[index]->to_postscript();
 }
 
@@ -182,7 +182,7 @@ Virtical::Virtical(std::initializer_list<std::shared_ptr<Shape>> shapes) :Compos
 	set_height(total_height);
 }
 
-std::string Virtical::move_to_draw_position(int index, double & width, double & height) const {
+std::string Virtical::moveToFirstPosition(int index, double & width, double & height) const {
 	auto outputString = "0 " + std::to_string(-get_height()/2 + getShapes()[index]->get_height()/2+height) +
 	                    " translate\n" + getShapes()[index]->to_postscript();
 
@@ -200,7 +200,7 @@ Horizontal::Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes):Com
 	set_width(total_width);
 }
 
-std::string Horizontal::move_to_draw_position(int index, double & width, double & height) const {
+std::string Horizontal::moveToFirstPosition(int index, double & width, double & height) const {
 	auto outputString = std::to_string(-get_width()/2 + getShapes()[index]->get_width()/2+width) +
 	                    " 0" + " translate\n" + getShapes()[index]->to_postscript();
 	width += getShapes()[index]->get_width();
