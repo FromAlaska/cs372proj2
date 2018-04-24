@@ -1,6 +1,4 @@
-// shape.h
-// Project: CPS
-// Base class Shape
+// shape.hpp
 
 #include <string>
 #include <vector>
@@ -30,8 +28,7 @@ private:
     double m_height;
 };
 
-class Circle: public Shape
-{
+class Circle: public Shape {
 public:
 	Circle() = default;
 	Circle(double radius);
@@ -41,8 +38,7 @@ private:
 	double m_radius;
 };
 
-class Polygon : public Shape
-{
+class Polygon : public Shape {
 public:
 	Polygon() = default;
 	Polygon(int num_sides, double side_length);
@@ -54,8 +50,7 @@ private:
 };
 
 
-class Rectangle : public Shape
-{
+class Rectangle : public Shape {
 public:
 	Rectangle() = default;
 	Rectangle(double width, double height): Shape(width, height){}
@@ -64,8 +59,7 @@ public:
 private:
 };
 
-class Spacer : public Shape
-{
+class Spacer : public Shape {
 public:
 	Spacer() = default;
 	Spacer(double width, double height): Shape(width, height){}
@@ -74,8 +68,7 @@ public:
 private:
 };
 
-class Square : public Polygon
-{
+class Square : public Polygon {
 public:
 	Square() = default;
 	Square(double side_length): Polygon(4, side_length){}
@@ -83,8 +76,7 @@ public:
 private:
 };
 
-class Triangle : public Polygon
-{
+class Triangle : public Polygon {
 public:
 	Triangle() = default;
 	Triangle(double side_length): Polygon(3, side_length){}
@@ -92,8 +84,7 @@ public:
 private:
 };
 
-class Rotated : public Shape
-{
+class Rotated : public Shape {
 public:
 	enum RotationAngle { QUARTER = 90, HALF = 180, THREE_QUARTER = 270 };
 	Rotated() = default;
@@ -105,8 +96,7 @@ private:
 	std::shared_ptr<Shape> m_shape;
 };
 
-class Scaled : public Shape
-{
+class Scaled : public Shape {
 public:
 	Scaled() = default;
 	Scaled(std::shared_ptr<Shape> shape, double fx, double fy);
@@ -118,8 +108,7 @@ private:
 	double m_fy;
 };
 
-class Composite : public Shape
-{
+class Composite : public Shape {
 public:
   Composite(std::initializer_list<std::shared_ptr<Shape>> shapes);
   virtual ~Composite = default;
@@ -130,8 +119,7 @@ private:
 	std::vector<std::shared_ptr<Shape>> m_shapes;
 };
 
-class Virtical : public Composite
-{
+class Virtical : public Composite {
 public:
 	Virtical() = default;
 	Virtical(std::initializer_list<std::shared_ptr<Shape>> shapes);
@@ -139,8 +127,7 @@ public:
 	std::string moveToFirstPosition(double & width, double & height, int index) const override;
 };
 
-class Horizontal : public Composite
-{
+class Horizontal : public Composite {
 public:
 	Horizontal() = default;
 	Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes);
@@ -148,8 +135,7 @@ public:
 	std::string moveToFirstPosition(double & width, double & height, int index) const override;
 };
 
-class Diamond : public Shape
-{
+class Diamond : public Shape {
 public:
 	Diamond() = default;
 	Diamond(double side_length);
@@ -158,8 +144,7 @@ public:
 private:
 };
 
-class STriangle : public Shape
-{
+class STriangle : public Shape {
 public:
 	STriangle() = default;
 	STriangle(double side, int depth);
@@ -169,8 +154,7 @@ private:
 	std::vector < std::shared_ptr<Shape>> m_subTriangles;
 };
 
-class U_Curve: public Shape
-{
+class U_Curve: public Shape {
 public:
 	U_Curve() = default;
 	U_Curve(double side):Shape(side, side){}
@@ -179,9 +163,9 @@ public:
 private:
 	std::vector<std::shared_ptr<Shape>> m_subLPB;
 };
+
 //Line plane bijection
-class LPB : public Shape
-{
+class LPB : public Shape {
 public:
 	LPB() = default;
 	LPB(double side, int depth);
