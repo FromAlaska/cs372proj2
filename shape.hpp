@@ -1,6 +1,6 @@
 // shape.h
 // Project: CPS
-// Base class Shape 
+// Base class Shape
 
 #include <string>
 #include <vector>
@@ -118,37 +118,34 @@ private:
 	double m_fy;
 };
 
-class Layered : public Shape
+class Composite : public Shape
 {
 public:
-	Layered() = default;
-	Layered(std::initializer_list<std::shared_ptr<Shape>> shapes);
-	~Layered() = default;
+  Composite(std::initializer_list<std::shared_ptr<Shape>> shapes);
+  virtual ~Composite = default;
 	std::string to_postscript() const;
+  virtual std::string moveToFirstPosition(double & width, double & height, int index) const = 0;
+  std::vector<std::shared_ptr<Shape>> getShapes() const;
 private:
 	std::vector<std::shared_ptr<Shape>> m_shapes;
 };
 
-class Virtical : public Shape
+class Virtical : public Composite
 {
 public:
 	Virtical() = default;
 	Virtical(std::initializer_list<std::shared_ptr<Shape>> shapes);
 	~Virtical() = default;
-	std::string to_postscript() const;
-private:
-	std::vector<std::shared_ptr<Shape>> m_shapes;
+	std::string moveToFirstPosition(double & width, double & height, int index) const override;
 };
 
-class Horizontal : public Shape
+class Horizontal : public Composite
 {
 public:
 	Horizontal() = default;
 	Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes);
 	~Horizontal() = default;
-	std::string to_postscript() const;
-private:
-	std::vector<std::shared_ptr<Shape>> m_shapes;
+	std::string moveToFirstPosition(double & width, double & height, int index) const override;
 };
 
 class Diamond : public Shape
